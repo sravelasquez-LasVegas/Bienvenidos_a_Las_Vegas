@@ -43,7 +43,7 @@
     .sub-item { font-size: 11px; padding: 3px 8px; background: #f5f5f3; border-radius: 8px; color: #555; }
     .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 4px; }
     .vote-row { display: flex; gap: 3px; }
-    .vote-btn { padding: 3px 10px; border-radius: 5px; border: 1px solid #ddd; background: #fff; font-size: 10px; cursor: pointer; transition: all 0.12s; color: #555; }
+    .vote-btn { padding: 3px 11px; border-radius: 6px; border: 1px solid #ddd; background: #fff; font-size: 12px; cursor: pointer; transition: all 0.12s; color: #555; }
     .vote-btn:hover { background: #f5f5f3; }
     .vote-btn.yes.selected { background: #EAF3DE; border-color: #3B6D11; color: #3B6D11; font-weight: 600; }
     .vote-btn.no.selected { background: #FCEBEB; border-color: #A32D2D; color: #A32D2D; font-weight: 600; }
@@ -89,6 +89,7 @@
     <button class="filter-btn" onclick="filterCards('downtown', this)">Centro</button>
     <button class="filter-btn" onclick="filterCards('shop', this)">Compras</button>
     <button class="filter-btn" onclick="filterCards('art', this)">Arte</button>
+    <button class="filter-btn" onclick="filterCards('class', this)">Clases de juegos de azar</button>
   </div>
 
   <div class="grid" id="grid"></div>
@@ -121,22 +122,27 @@ const activities = [
   { id:10, cat:"strip", title:"Montaña Rusa del New York, New York", desc:"Conocida como The Big Apple Coaster, es una experiencia emocionante y de alta velocidad que rodea el exterior e interior del hotel, alcanzando más de 108 km/h.", subs:[], link:"https://newyorknewyork.mgmresorts.com/en/entertainment/the-big-apple-coaster-and-arcade.html" },
   { id:11, cat:"strip", title:"Torre Eiffel del Paris Las Vegas", desc:"Es una impresionante réplica a escala 1:2 (mitad de tamaño) de la original parisina, con 165 metros (541 pies) de altura.", subs:[], link:"https://www.caesars.com/paris-las-vegas/things-to-do/attractions/eiffel-tower" },
   { id:12, cat:"downtown", title:"Centro de Las Vegas", desc:"Vive el Las Vegas original con la famosa Fremont Street Experience y los carteles de neón vintage.", subs:["Fremont Street Experience","SlotZilla"], link:"https://vegasexperience.com/" },
-  { id:13, cat:"art", title:"Area 15: Interstellar Arc (RA/RV)", desc:"Interstellar Arc es una experiencia inmersiva de realidad virtual (RV) a gran escala.  Es un viaje espacial que combina narrativa cinemática con tecnología de movimiento libre, permitiendo a los visitantes explorar un entorno de ciencia ficción.", subs:[], link:"https://www.interstellararc.com/" },
+  { id:13, cat:"art", title:"Area 15: Interstellar Arc (RV)", desc:"Interstellar Arc es una experiencia inmersiva de realidad virtual (RV) a gran escala. Es un viaje espacial que combina narrativa cinemática con tecnología de movimiento libre, permitiendo a los visitantes explorar un entorno de ciencia ficción.", subs:[], link:"https://www.interstellararc.com/" },
   { id:14, cat:"art", title:"Museo de Neón", desc:"Galería al aire libre que alberga más de 800 letreros históricos que cuentan la historia de casinos y negocios desde la década de 1930 hasta la actualidad.", subs:[], link:"https://neonmuseum.org/" },
   { id:15, cat:"shop", title:"Premium Outlet Mall", desc:"Famoso por ofrecer descuentos diarios del 25% al 65% en marcas de lujo.", subs:[], link:"https://www.premiumoutlets.com/outlet/las-vegas-north" },
   { id:16, cat:"shop", title:"Downtown Summerlin", desc:"Vibrante centro urbano al aire libre que ofrece amplia variedad de marcas, desde boutiques de moda hasta tiendas reconocidas, junto con diversas opciones gastronómicas con patios al aire libre.", subs:[], link:"https://summerlin.com/downtown-summerlin/" },
-  { id:17, cat:"shop", title:"Town Square Las Vegas", desc:"Ubicado justo al sur en Las Vegas Blvd. Ofrece una alternativa más tranquila al Strip con diversas tiendas y restaurantes", subs:[], link:"https://tslv.com/" },
+  { id:17, cat:"shop", title:"Town Square Las Vegas", desc:"Ubicado justo al sur en Las Vegas Blvd. Ofrece una alternativa más tranquila al Strip con diversas tiendas y restaurantes.", subs:[], link:"https://tslv.com/" },
   { id:18, cat:"shop", title:"Fashion Show Mall", desc:"El centro comercial más grande y uno de los principales destinos de compras, gastronomía y entretenimiento en la Franja de Las Vegas Strip.", subs:[], link:"https://www.fslv.com/en/" },
   { id:19, cat:"show", title:"Cirque du Soleil KA", desc:"Una de las producciones más épicas, tecnológicas y narrativas de la compañía. A diferencia de otros shows del Cirque que son más abstractos. KÀ narra una historia lineal sobre gemelos separados que emprenden un peligroso viaje para cumplir su destino.", subs:[], link:"https://www.cirquedusoleil.com/ka" },
-  { id:20, cat:"show", title:"Mad Apple", desc:"Mad Apple del Cirque du Soleil en el New York-New York Hotel & Casino de Las Vegas es un espectáculo vibrante que celebra la cultura nocturna de Nueva York combinando acrobacias de alto nivel, comedia stand-up, música en vivo y danza. Se describe como una <i>fiesta salvaje</i> o un cóctel energético, con un tono más maduro.", subs:[], link:"https://www.cirquedusoleil.com/es/mad-apple" },
+  { id:20, cat:"show", title:"Mad Apple", desc:"Mad Apple del Cirque du Soleil en el New York-New York Hotel & Casino de Las Vegas es un espectáculo vibrante que celebra la cultura nocturna de Nueva York combinando acrobacias de alto nivel, comedia stand-up, música en vivo y danza. Se describe como una <i> fiesta salvaje </i> o un cóctel energético, con un tono más maduro.", subs:[], link:"https://www.cirquedusoleil.com/es/mad-apple" },
   { id:21, cat:"show", title:"Penn and Teller", desc:"El espectáculo es una mezcla única de magia clásica, comedia ingeniosa, escepticismo y un estilo directo e interactivo, a menudo descrito como divertido y sorprendente, que evoluciona constantemente con nuevos trucos.", subs:[], link:"https://www.riolasvegas.com/shows/penn-teller" },
   { id:22, cat:"show", title:"Carlos Santana en House of Blues", desc:"Para los amantes del rock, jazz y los ritmos afro-cubanos, este es un concierto íntimo de alto nivel.", subs:[], link:"https://lasvegas.houseofblues.com/santana" },  
-  { id:23, cat:"show", title:"Mago de Oz en  la Esfera", desc:"El edificio esférico más grande del mundo proyecta en un formato revolcionario e inmersvo El mago de Oz.", subs:[], link:"https://www.thesphere.com/" }
-
+  { id:23, cat:"show", title:"Mago de Oz en  la Esfera", desc:"El edificio esférico más grande del mundo proyecta en un formato revolucionario e inmersivo.", subs:[], link:"https://www.thesphere.com/" },
+  { id:24, cat:"class", title:"Venetian: Clases de dados", desc:"Clases de dados están disponibles de lunes a viernes a las 11:00 am.", subs:[], link:"https://www.venetianlasvegas.com/resort/casino/table-games.html" },
+  { id:25, cat:"class", title:"Sahara: Clases de dados", desc:"Clases de dados de lunes a viernes a las 12:30 pm.  Llamar para confirmar 702 761 7000.", subs:[], link:"https://www.saharalasvegas.com/about" },
+  { id:26, cat:"class", title:"Excalibur: Clases de Poker", desc:"De lunes a viernes a las 12:00 pm.", subs:[], link:"https://excalibur.mgmresorts.com/en/casino/table-games.htmll" },
+  { id:27, cat:"class", title:"Luxur: Clases de dados, Black Jack, Ruleta", desc:"De lunes a viernes a las 12:00 pm.  Llamar para confirmar 702 262 4000.", subs:[], link:"https://luxor.mgmresorts.com/en/casino/table-games.html" },
+  { id:28, cat:"class", title:"Golden Nugget: Clases de dados", desc:"Golden Nugget: Clases de dados", desc:"Clases todos los días a las 11:30 am ruleta y 12 pm Blackjack.  Llamar para confirmar 702 385 7111.", subs:[], link:"https://www.goldennugget.com/las-vegas/casino/table-games/" } 
+ 
 ];
 
-const catLabels = { outdoor:"Naturaleza", strip:"El Strip", show:"Espectáculos", downtown:"Centro", shop:"Compras", art:"Arte y Cultura" };
-const catIcons = { outdoor:"ti-mountain", strip:"ti-building-skyscraper", show:"ti-ticket", downtown:"ti-map-pin", shop:"ti-shopping-bag", art:"ti-palette" };
+const catLabels = { outdoor:"Naturaleza", strip:"El Strip", show:"Espectáculos", downtown:"Centro", shop:"Compras", art:"Arte y Cultura", class:"Clases de juegos de azar" };
+const catIcons = { outdoor:"ti-mountain", strip:"ti-building-skyscraper", show:"ti-ticket", downtown:"ti-map-pin", shop:"ti-shopping-bag", art:"ti-palette", class:"ti-dice" };
 const votes = {};
 let activeFilter = "all";
 
